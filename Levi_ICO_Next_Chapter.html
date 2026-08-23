@@ -1,0 +1,1919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Levi — The Next Chapter</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #030408;
+            --text: #f4f7fb;
+            --muted: #8d96a8;
+            --red: #ff173d;
+            --red-dark: #b80022;
+            --cyan: #5ee7ff;
+            --purple: #9d7cff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: "Inter", sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* =========================
+           BACKGROUND
+        ========================= */
+
+        .background {
+            position: fixed;
+            inset: 0;
+            z-index: -10;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(94,231,255,.07), transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(157,124,255,.08), transparent 35%),
+                #030408;
+        }
+
+        .grid {
+            position: absolute;
+            inset: -50%;
+            width: 200%;
+            height: 200%;
+
+            background-image:
+                linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+
+            background-size: 70px 70px;
+
+            transform: perspective(600px) rotateX(60deg);
+            transform-origin: center center;
+
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            from {
+                transform: perspective(600px) rotateX(60deg) translateY(0);
+            }
+            to {
+                transform: perspective(600px) rotateX(60deg) translateY(70px);
+            }
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: .35;
+            animation: float 12s ease-in-out infinite;
+        }
+
+        .orb.one {
+            width: 400px;
+            height: 400px;
+            background: #073c50;
+            top: -150px;
+            left: -100px;
+        }
+
+        .orb.two {
+            width: 350px;
+            height: 350px;
+            background: #35175b;
+            right: -100px;
+            bottom: 10%;
+            animation-delay: -4s;
+        }
+
+        .orb.three {
+            width: 250px;
+            height: 250px;
+            background: #610d22;
+            left: 45%;
+            top: 45%;
+            animation-delay: -7s;
+        }
+
+        @keyframes float {
+            0%,100% {
+                transform: translate(0,0) scale(1);
+            }
+
+            50% {
+                transform: translate(50px,-40px) scale(1.15);
+            }
+        }
+
+        #particles {
+            position: fixed;
+            inset: 0;
+            z-index: -5;
+            pointer-events: none;
+        }
+
+        /* =========================
+           NAV
+        ========================= */
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 22px 5vw;
+
+            background: linear-gradient(
+                to bottom,
+                rgba(3,4,8,.85),
+                transparent
+            );
+
+            backdrop-filter: blur(5px);
+        }
+
+        .brand {
+            font-family: "Space Grotesk";
+            font-weight: 700;
+            letter-spacing: -.04em;
+        }
+
+        .brand span {
+            color: var(--red);
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            font-size: 11px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            background: #47ff88;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #47ff88;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: .3;
+            }
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        section {
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+
+            padding: 120px 20px 60px;
+        }
+
+        .hero-content {
+            max-width: 1100px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 9px 16px;
+
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 100px;
+
+            background: rgba(255,255,255,.03);
+            backdrop-filter: blur(15px);
+
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .2em;
+            color: #aeb6c7;
+
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            font-family: "Space Grotesk";
+            font-size: clamp(80px, 16vw, 230px);
+            line-height: .78;
+            letter-spacing: -.09em;
+            font-weight: 700;
+
+            background: linear-gradient(
+                110deg,
+                #ffffff 10%,
+                #a9b2c5 40%,
+                #ffffff 60%,
+                #6d7380 90%
+            );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+
+            position: relative;
+        }
+
+        .hero h1::after {
+            content: "LEVI";
+            position: absolute;
+            inset: 0;
+
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,.5),
+                transparent
+            );
+
+            -webkit-background-clip: text;
+            color: transparent;
+
+            animation: shine 5s infinite;
+        }
+
+        @keyframes shine {
+            0%, 55% {
+                background-position: -1000px;
+            }
+
+            100% {
+                background-position: 1000px;
+            }
+        }
+
+        .hero-subtitle {
+            margin-top: 35px;
+
+            font-size: clamp(18px, 2vw, 25px);
+            color: var(--muted);
+            font-weight: 300;
+        }
+
+        .hero-subtitle strong {
+            color: white;
+            font-weight: 600;
+        }
+
+        .scroll {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+
+            font-size: 10px;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: #626b7c;
+        }
+
+        /* =========================
+           INTRO
+        ========================= */
+
+        .intro {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 100px 8vw;
+        }
+
+        .intro-inner {
+            max-width: 1000px;
+            text-align: center;
+        }
+
+        .intro-number {
+            font-size: 12px;
+            color: var(--red);
+            letter-spacing: .3em;
+            margin-bottom: 25px;
+        }
+
+        .intro h2 {
+            font-family: "Space Grotesk";
+            font-size: clamp(40px, 7vw, 90px);
+            line-height: .95;
+            letter-spacing: -.06em;
+            margin-bottom: 30px;
+        }
+
+        .intro p {
+            max-width: 700px;
+            margin: auto;
+
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--muted);
+        }
+
+        /* =========================
+           QUOTES
+        ========================= */
+
+        .quotes {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 100px 7vw;
+        }
+
+        .quote-container {
+            width: min(1100px, 100%);
+        }
+
+        .quote-label {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+
+            color: var(--red);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .25em;
+
+            margin-bottom: 35px;
+        }
+
+        .quote-label::after {
+            content: "";
+            height: 1px;
+            width: 80px;
+            background: var(--red);
+            opacity: .5;
+        }
+
+        .quote-box {
+            min-height: 330px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            padding: 60px;
+
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 30px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255,255,255,.055),
+                    rgba(255,255,255,.015)
+                );
+
+            box-shadow:
+                0 30px 100px rgba(0,0,0,.4),
+                inset 0 1px rgba(255,255,255,.05);
+
+            backdrop-filter: blur(25px);
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-box::before {
+            content: "“";
+
+            position: absolute;
+            right: 40px;
+            top: -20px;
+
+            font-family: Georgia;
+            font-size: 300px;
+            line-height: 1;
+
+            color: rgba(255,255,255,.025);
+        }
+
+        #quote {
+            font-family: "Space Grotesk";
+            font-size: clamp(30px, 5vw, 64px);
+            line-height: 1.05;
+            letter-spacing: -.04em;
+
+            max-width: 900px;
+
+            transition:
+                opacity .5s ease,
+                transform .5s ease;
+        }
+
+        #quote.fade {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+
+        .quote-author {
+            margin-top: 35px;
+            color: #788295;
+            font-size: 13px;
+        }
+
+        .quote-controls {
+            margin-top: 25px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .quote-progress {
+            height: 2px;
+            flex: 1;
+
+            background: rgba(255,255,255,.08);
+
+            margin-right: 30px;
+            overflow: hidden;
+        }
+
+        .quote-progress span {
+            display: block;
+            height: 100%;
+            width: 0%;
+            background: var(--red);
+            transition: width .5s ease;
+        }
+
+        .next-btn {
+            border: 1px solid rgba(255,255,255,.12);
+            background: rgba(255,255,255,.04);
+            color: white;
+
+            padding: 12px 20px;
+            border-radius: 100px;
+
+            cursor: pointer;
+            transition: .25s ease;
+        }
+
+        .next-btn:hover {
+            background: white;
+            color: black;
+            transform: translateY(-2px);
+        }
+
+        /* =========================
+           TIMELINE
+        ========================= */
+
+        .chapter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 120px 8vw;
+        }
+
+        .chapter-inner {
+            width: min(1000px, 100%);
+        }
+
+        .chapter-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .card {
+            min-height: 260px;
+
+            padding: 35px;
+
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,.08);
+
+            background: rgba(255,255,255,.025);
+
+            transition: .35s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255,255,255,.2);
+            background: rgba(255,255,255,.05);
+        }
+
+        .card-number {
+            font-size: 11px;
+            color: var(--red);
+            letter-spacing: .2em;
+        }
+
+        .card h3 {
+            font-family: "Space Grotesk";
+            font-size: 30px;
+            margin: 45px 0 15px;
+        }
+
+        .card p {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* =========================
+           FINAL
+        ========================= */
+
+        .final {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .final-inner {
+            max-width: 900px;
+        }
+
+        .final h2 {
+            font-family: "Space Grotesk";
+            font-size: clamp(55px, 9vw, 120px);
+            letter-spacing: -.07em;
+            line-height: .85;
+        }
+
+        .final h2 span {
+            color: var(--red);
+        }
+
+        .final p {
+            margin: 40px auto;
+            max-width: 600px;
+
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        /* =========================
+           EMERGENCY STOP
+        ========================= */
+
+        .emergency-wrap {
+            margin-top: 70px;
+        }
+
+        .emergency-label {
+            font-size: 9px;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: #555d6d;
+            margin-bottom: 15px;
+        }
+
+        .emergency-button {
+            width: 180px;
+            height: 180px;
+
+            border-radius: 50%;
+
+            border: 8px solid #26050b;
+
+            background:
+                radial-gradient(
+                    circle at 35% 30%,
+                    #ff536e,
+                    #ff173d 45%,
+                    #a50020
+                );
+
+            color: white;
+
+            font-weight: 900;
+            font-size: 16px;
+            letter-spacing: .05em;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 0 0 2px #ff173d,
+                0 0 40px rgba(255,23,61,.3),
+                inset 0 -12px 25px rgba(0,0,0,.35);
+
+            transition: .2s ease;
+        }
+
+        .emergency-button:hover {
+            transform: scale(1.05);
+
+            box-shadow:
+                0 0 0 2px #ff173d,
+                0 0 70px rgba(255,23,61,.6),
+                inset 0 -12px 25px rgba(0,0,0,.35);
+        }
+
+        .emergency-button:active {
+            transform: scale(.95);
+        }
+
+        /* =========================
+           MODAL
+        ========================= */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+
+            z-index: 100;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+            background: rgba(0,0,0,.8);
+            backdrop-filter: blur(20px);
+
+            opacity: 0;
+            pointer-events: none;
+
+            transition: .3s ease;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-box {
+            width: min(480px, 100%);
+
+            padding: 45px;
+
+            border-radius: 25px;
+
+            border: 1px solid rgba(255,23,61,.3);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(40,7,12,.95),
+                    rgba(8,8,12,.98)
+                );
+
+            box-shadow: 0 40px 120px rgba(0,0,0,.7);
+
+            transform: scale(.9) translateY(20px);
+            transition: .35s ease;
+        }
+
+        .modal.active .modal-box {
+            transform: scale(1) translateY(0);
+        }
+
+        .warning {
+            color: var(--red);
+            font-size: 11px;
+            letter-spacing: .25em;
+            text-transform: uppercase;
+        }
+
+        .modal h3 {
+            font-family: "Space Grotesk";
+            font-size: 38px;
+            margin: 15px 0;
+        }
+
+        .modal p {
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .code-input {
+            width: 100%;
+
+            padding: 17px;
+
+            border-radius: 12px;
+
+            border: 1px solid rgba(255,255,255,.1);
+
+            background: rgba(255,255,255,.04);
+
+            color: white;
+
+            font-size: 20px;
+            text-align: center;
+            letter-spacing: .3em;
+
+            outline: none;
+        }
+
+        .code-input:focus {
+            border-color: var(--red);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+
+            padding: 14px;
+
+            border-radius: 10px;
+
+            border: 1px solid rgba(255,255,255,.1);
+
+            cursor: pointer;
+
+            font-weight: 600;
+        }
+
+        .cancel {
+            background: rgba(255,255,255,.05);
+            color: white;
+        }
+
+        .send {
+            background: var(--red);
+            color: white;
+        }
+
+        .error {
+            color: #ff627d;
+            font-size: 12px;
+            margin-top: 12px;
+            min-height: 18px;
+        }
+
+        .success {
+            color: #58ff9a;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            padding: 30px 5vw;
+
+            display: flex;
+            justify-content: space-between;
+
+            color: #4f5767;
+            font-size: 11px;
+            letter-spacing: .1em;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media(max-width: 700px) {
+
+            nav {
+                padding: 18px 20px;
+            }
+
+            .status {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 30vw;
+            }
+
+            .quote-box {
+                padding: 30px;
+                min-height: 400px;
+            }
+
+            .chapter-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .emergency-button {
+                width: 150px;
+                height: 150px;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        /* =========================
+           ICO TRANSMISSION
+        ========================= */
+
+        .transmission {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 7vw;
+        }
+
+        .transmission-inner {
+            width: min(1050px, 100%);
+        }
+
+        .transmission-intro {
+            text-align: center;
+            max-width: 850px;
+            margin: 0 auto 55px;
+        }
+
+        .transmission-intro h2 {
+            font-family: "Space Grotesk";
+            font-size: clamp(45px, 7vw, 90px);
+            line-height: .9;
+            letter-spacing: -.065em;
+            margin-bottom: 25px;
+        }
+
+        .transmission-intro h2 span {
+            color: var(--red);
+        }
+
+        .transmission-intro p {
+            color: var(--muted);
+            line-height: 1.8;
+            font-size: 17px;
+        }
+
+        .terminal {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(94,231,255,.18);
+            border-radius: 26px;
+            background:
+                radial-gradient(circle at 85% 15%, rgba(94,231,255,.08), transparent 30%),
+                linear-gradient(145deg, rgba(8,16,22,.96), rgba(4,7,11,.98));
+            box-shadow:
+                0 35px 100px rgba(0,0,0,.55),
+                inset 0 1px rgba(255,255,255,.05);
+        }
+
+        .terminal::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent 0,
+                transparent 3px,
+                rgba(255,255,255,.012) 4px
+            );
+        }
+
+        .terminal-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 17px 22px;
+            border-bottom: 1px solid rgba(255,255,255,.07);
+            background: rgba(255,255,255,.025);
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 7px;
+        }
+
+        .terminal-dots i {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #566071;
+        }
+
+        .terminal-title {
+            font-family: monospace;
+            font-size: 10px;
+            letter-spacing: .18em;
+            color: #657184;
+        }
+
+        .terminal-body {
+            padding: 45px;
+            font-family: monospace;
+        }
+
+        .terminal-line {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 14px;
+            color: #69798a;
+            font-size: 12px;
+        }
+
+        .terminal-line .key {
+            color: var(--cyan);
+            min-width: 125px;
+        }
+
+        .terminal-message {
+            margin: 40px 0 35px;
+            padding: 30px;
+            border-left: 2px solid var(--cyan);
+            background: rgba(94,231,255,.035);
+        }
+
+        .terminal-message .small {
+            color: #5e7382;
+            font-size: 10px;
+            letter-spacing: .18em;
+            margin-bottom: 15px;
+        }
+
+        .terminal-message h3 {
+            font-family: "Space Grotesk";
+            font-size: clamp(25px, 4vw, 45px);
+            line-height: 1;
+            letter-spacing: -.04em;
+            font-weight: 500;
+        }
+
+        .transmission-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid rgba(94,231,255,.25);
+            background: rgba(94,231,255,.06);
+            color: white;
+            padding: 14px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: monospace;
+            letter-spacing: .08em;
+            transition: .25s ease;
+        }
+
+        .transmission-btn:hover {
+            background: var(--cyan);
+            color: #031017;
+            transform: translateY(-2px);
+        }
+
+        .transmission-counter {
+            margin-top: 18px;
+            color: #536171;
+            font-size: 10px;
+            letter-spacing: .15em;
+        }
+
+        /* =========================
+           SECRET ICO PROTOCOL
+        ========================= */
+
+        .secret-trigger {
+            margin-top: 70px;
+            text-align: center;
+            color: #3f4754;
+            font-size: 9px;
+            letter-spacing: .25em;
+            text-transform: uppercase;
+            user-select: none;
+        }
+
+        .secret-trigger span {
+            cursor: pointer;
+            transition: color .2s ease;
+        }
+
+        .secret-trigger span:hover {
+            color: #778396;
+        }
+
+        .secret-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 150;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(0,0,0,.92);
+            backdrop-filter: blur(18px);
+            opacity: 0;
+            pointer-events: none;
+            transition: .35s ease;
+        }
+
+        .secret-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .secret-box {
+            width: min(700px, 100%);
+            padding: 45px;
+            border: 1px solid rgba(94,231,255,.22);
+            border-radius: 20px;
+            background: #03090d;
+            box-shadow: 0 40px 140px rgba(0,0,0,.8);
+            font-family: monospace;
+            color: #8aa0ad;
+            transform: scale(.92);
+            transition: .35s ease;
+        }
+
+        .secret-overlay.active .secret-box {
+            transform: scale(1);
+        }
+
+        .secret-box .access {
+            color: #58ff9a;
+            letter-spacing: .15em;
+            font-size: 11px;
+        }
+
+        .secret-box h3 {
+            margin: 22px 0;
+            color: white;
+            font-family: "Space Grotesk";
+            font-size: clamp(35px, 6vw, 65px);
+            line-height: .9;
+            letter-spacing: -.05em;
+        }
+
+        .secret-box p {
+            line-height: 1.8;
+            margin-bottom: 28px;
+        }
+
+        .secret-close {
+            border: 1px solid rgba(255,255,255,.12);
+            background: rgba(255,255,255,.04);
+            color: white;
+            padding: 11px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        @media(max-width:700px) {
+            .terminal-body {
+                padding: 28px 22px;
+            }
+
+            .terminal-line {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .terminal-line .key {
+                min-width: auto;
+            }
+
+            .terminal-message {
+                padding: 22px;
+            }
+
+            .secret-box {
+                padding: 30px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- =========================
+     BACKGROUND
+========================= -->
+
+<div class="background">
+    <div class="grid"></div>
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+</div>
+
+<canvas id="particles"></canvas>
+
+<!-- =========================
+     NAV
+========================= -->
+
+<nav>
+    <div class="brand">NEXT<span>.</span>CHAPTER</div>
+
+    <div class="status">
+        <div class="status-dot"></div>
+        SYSTEM ONLINE
+    </div>
+</nav>
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="eyebrow">
+            IT INTERN // 2026
+        </div>
+
+        <h1>LEVI</h1>
+
+        <p class="hero-subtitle">
+            One chapter ends.<br>
+            <strong>The next one starts now.</strong>
+        </p>
+
+    </div>
+
+    <div class="scroll">
+        SCROLL TO CONTINUE
+    </div>
+
+</section>
+
+<!-- =========================
+     INTRO
+========================= -->
+
+<section class="intro">
+
+    <div class="intro-inner">
+
+        <div class="intro-number">
+            01 / THE JOURNEY
+        </div>
+
+        <h2>
+            Every great career
+            starts somewhere.
+        </h2>
+
+        <p>
+            Levi, your internship may be coming to an end,
+            but that doesn't mean the learning stops here.
+            The things you built, the mistakes you made,
+            the problems you solved and the people you met
+            are all part of the foundation you're taking
+            with you into whatever comes next.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     QUOTES
+========================= -->
+
+<section class="quotes">
+
+    <div class="quote-container">
+
+        <div class="quote-label">
+            02 / WORDS FOR THE FUTURE
+        </div>
+
+        <div class="quote-box">
+
+            <div id="quote">
+                "The future belongs to those who prepare for it today."
+            </div>
+
+            <div class="quote-author" id="author">
+                — Malcolm X
+            </div>
+
+            <div class="quote-controls">
+
+                <div class="quote-progress">
+                    <span id="progress"></span>
+                </div>
+
+                <button class="next-btn" onclick="nextQuote()">
+                    NEXT →
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     ICO TRANSMISSION
+========================= -->
+
+<section class="transmission">
+
+    <div class="transmission-inner">
+
+        <div class="transmission-intro">
+
+            <div class="quote-label" style="justify-content:center;">
+                03 / ICO TRANSMISSION
+            </div>
+
+            <h2>
+                THIS PAGE<br>
+                ISN'T <span>FINISHED.</span>
+            </h2>
+
+            <p>
+                You may have left the team.
+                But that doesn't necessarily mean the story ends here.
+                From time to time, there may be a new transmission waiting for you.
+            </p>
+
+        </div>
+
+        <div class="terminal">
+
+            <div class="terminal-top">
+
+                <div class="terminal-dots">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </div>
+
+                <div class="terminal-title">
+                    ICO // PRIVATE CHANNEL
+                </div>
+
+            </div>
+
+            <div class="terminal-body">
+
+                <div class="terminal-line">
+                    <span class="key">RECIPIENT:</span>
+                    <span>LEVI</span>
+                </div>
+
+                <div class="terminal-line">
+                    <span class="key">CHANNEL:</span>
+                    <span>ICO-FUTURE</span>
+                </div>
+
+                <div class="terminal-line">
+                    <span class="key">STATUS:</span>
+                    <span style="color:#58ff9a;">CONNECTED</span>
+                </div>
+
+                <div class="terminal-line">
+                    <span class="key">TRANSMISSION:</span>
+                    <span id="transmissionNumber">001</span>
+                </div>
+
+                <div class="terminal-message">
+
+                    <div class="small">
+                        INCOMING MESSAGE
+                    </div>
+
+                    <h3 id="transmissionText">
+                        You made it this far.<br>
+                        Now go build something you're proud of.
+                    </h3>
+
+                </div>
+
+                <button
+                    class="transmission-btn"
+                    onclick="nextTransmission()">
+
+                    CHECK NEXT TRANSMISSION
+                    <span>→</span>
+
+                </button>
+
+                <div class="transmission-counter" id="transmissionCounter">
+                    TRANSMISSION 001 / 005
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="secret-trigger">
+            <span onclick="activateSecretProtocol()">
+                there may be something here you haven't discovered yet
+            </span>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     FINAL
+========================= -->
+
+<section class="final">
+
+    <div class="final-inner">
+
+        <div class="quote-label" style="justify-content:center;">
+            04 / END OF SESSION
+        </div>
+
+        <h2>
+            GOOD LUCK,<br>
+            <span>LEVI.</span>
+        </h2>
+
+        <p>
+            If the path ahead isn't quite what you expected —
+            and you ever find yourself thinking
+            <em>"Maybe I should go back to ICO..."</em>
+            <br><br>
+            <strong>Don't overthink it. Press the button.</strong>
+        </p>
+
+        <!-- EMERGENCY -->
+
+        <div class="emergency-wrap">
+
+
+            <button
+                class="emergency-button"
+                onclick="openEmergency()">
+                RETURN<br>
+                TO ICO
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+
+    <div>LEVI // 2026</div>
+    <div>CHANNEL OPEN</div>
+
+</footer>
+
+
+<!-- =========================
+     SECRET ICO PROTOCOL
+========================= -->
+
+<div class="secret-overlay" id="secretOverlay">
+
+    <div class="secret-box">
+
+        <div class="access">
+            ACCESS GRANTED // ICO INTERNAL PROTOCOL
+        </div>
+
+        <h3>
+            YOU WERE<br>
+            NEVER REALLY<br>
+            DELETED.
+        </h3>
+
+        <p>
+            Levi, wherever the next chapter takes you,
+            remember that the door you came through is not
+            necessarily a door that has to stay closed.
+        </p>
+
+        <p>
+            Some systems are designed to reconnect.
+        </p>
+
+        <button class="secret-close" onclick="closeSecretProtocol()">
+            CLOSE CHANNEL
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     EMERGENCY MODAL
+========================= -->
+
+<div class="modal" id="emergencyModal">
+
+    <div class="modal-box">
+
+        <div class="warning">
+            ⚠ RESTRICTED ACTION
+        </div>
+
+        <h3>Return Protocol</h3>
+
+        <p>
+            You are about to reopen a closed channel.
+            If you're sure the path you chose isn't quite what you expected —
+            and you'd like to talk to us about coming back to ICO —
+            enter the authorization code to continue.
+        </p>
+
+        <input
+            id="securityCode"
+            class="code-input"
+            type="password"
+            maxlength="4"
+            placeholder="••••"
+            autocomplete="off"
+        >
+
+        <div class="error" id="errorMessage"></div>
+
+        <div class="modal-buttons">
+
+            <button
+                class="cancel"
+                onclick="closeEmergency()">
+                CANCEL
+            </button>
+
+            <button
+                class="send"
+                onclick="sendEmergency()">
+                INITIATE RETURN
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   EMAIL CONFIGURATION
+===================================================== */
+
+const RECEIVER_EMAIL = "theboschify@gmail.com";
+const EMAIL_SUBJECT = "🚨 Levi Farewell — Emergency Stop Activated";
+const EMAIL_BODY = "The Emergency Stop button was activated on Levi's farewell website.";
+
+
+/* =====================================================
+   QUOTES
+===================================================== */
+
+const quotes = [
+
+    {
+        text: "The expert in anything was once a beginner.",
+        author: "Helen Hayes"
+    },
+
+    {
+        text: "It always seems impossible until it's done.",
+        author: "Nelson Mandela"
+    },
+
+    {
+        text: "The future depends on what you do today.",
+        author: "Mahatma Gandhi"
+    },
+
+    {
+        text: "The only way to do great work is to love what you do.",
+        author: "Steve Jobs"
+    },
+
+    {
+        text: "Your career is not a straight line. It's a collection of experiments.",
+        author: "Unknown"
+    }
+
+];
+
+let quoteIndex = 0;
+
+const quoteElement = document.getElementById("quote");
+const authorElement = document.getElementById("author");
+const progressElement = document.getElementById("progress");
+
+function showQuote(index) {
+
+    quoteElement.classList.add("fade");
+
+    setTimeout(() => {
+
+        quoteElement.textContent = `"${quotes[index].text}"`;
+        authorElement.textContent = `— ${quotes[index].author}`;
+
+        progressElement.style.width =
+            `${((index + 1) / quotes.length) * 100}%`;
+
+        quoteElement.classList.remove("fade");
+
+    }, 450);
+}
+
+function nextQuote() {
+
+    quoteIndex++;
+
+    if (quoteIndex >= quotes.length) {
+        quoteIndex = 0;
+    }
+
+    showQuote(quoteIndex);
+}
+
+
+/* =====================================================
+   AUTO QUOTE ROTATION
+===================================================== */
+
+let autoQuote = setInterval(() => {
+    nextQuote();
+}, 9000);
+
+
+/* =====================================================
+   EMERGENCY MODAL
+===================================================== */
+
+const modal = document.getElementById("emergencyModal");
+const codeInput = document.getElementById("securityCode");
+const errorMessage = document.getElementById("errorMessage");
+
+function openEmergency() {
+
+    modal.classList.add("active");
+
+    codeInput.value = "";
+    errorMessage.textContent = "";
+
+    setTimeout(() => {
+        codeInput.focus();
+    }, 300);
+}
+
+function closeEmergency() {
+
+    modal.classList.remove("active");
+
+    codeInput.value = "";
+    errorMessage.textContent = "";
+}
+
+
+/* =====================================================
+   SEND EMAIL
+===================================================== */
+
+function sendEmergency() {
+
+    const enteredCode = codeInput.value.trim();
+
+    /*
+        IMPORTANT:
+        This is intentionally client-side because this is
+        a static HTML website.
+
+        Anyone technically capable of inspecting JavaScript
+        can discover the code.
+
+        For a real security mechanism, validation should
+        happen on a server.
+    */
+
+    if (enteredCode !== "2026") {
+
+        errorMessage.textContent =
+            "ACCESS DENIED — INVALID AUTHORIZATION CODE.";
+
+        codeInput.value = "";
+
+        return;
+    }
+
+    errorMessage.textContent = "AUTHORIZATION ACCEPTED...";
+
+    const mailtoLink =
+        `mailto:${encodeURIComponent(RECEIVER_EMAIL)}` +
+        `?subject=${encodeURIComponent(EMAIL_SUBJECT)}` +
+        `&body=${encodeURIComponent(EMAIL_BODY)}`;
+
+    window.location.href = mailtoLink;
+
+    errorMessage.classList.add("success");
+
+    errorMessage.textContent =
+        "✓ OPENING DEFAULT EMAIL APP...";
+
+    setTimeout(() => {
+
+        closeEmergency();
+
+    }, 2200);
+}
+
+
+/* =====================================================
+   ICO TRANSMISSIONS
+===================================================== */
+
+const transmissions = [
+    "You made it this far.<br>Now go build something you're proud of.",
+    "Remember where you started.<br>It might matter more than you think.",
+    "The next chapter is yours.<br>But the ICO channel is still open.",
+    "Some doors close.<br>The good ones can always be opened again.",
+    "Still thinking about ICO?<br>You already know what to do."
+];
+
+let transmissionIndex = 0;
+
+function nextTransmission() {
+
+    const textElement = document.getElementById("transmissionText");
+    const numberElement = document.getElementById("transmissionNumber");
+    const counterElement = document.getElementById("transmissionCounter");
+
+    textElement.style.opacity = "0";
+    textElement.style.transform = "translateY(12px)";
+
+    setTimeout(() => {
+
+        transmissionIndex++;
+
+        if (transmissionIndex >= transmissions.length) {
+            transmissionIndex = 0;
+        }
+
+        const number =
+            String(transmissionIndex + 1).padStart(3, "0");
+
+        textElement.innerHTML =
+            transmissions[transmissionIndex];
+
+        numberElement.textContent = number;
+
+        counterElement.textContent =
+            `TRANSMISSION ${number} / ${String(transmissions.length).padStart(3, "0")}`;
+
+        textElement.style.opacity = "1";
+        textElement.style.transform = "translateY(0)";
+
+    }, 350);
+}
+
+
+/* =====================================================
+   SECRET ICO PROTOCOL
+===================================================== */
+
+const secretOverlay =
+    document.getElementById("secretOverlay");
+
+let secretSequence = "";
+
+document.addEventListener("keydown", (event) => {
+
+    if (event.key.length === 1) {
+
+        secretSequence +=
+            event.key.toLowerCase();
+
+        if (secretSequence.length > 3) {
+            secretSequence =
+                secretSequence.slice(-3);
+        }
+
+        if (secretSequence === "ico") {
+            activateSecretProtocol();
+            secretSequence = "";
+        }
+    }
+
+});
+
+function activateSecretProtocol() {
+    secretOverlay.classList.add("active");
+}
+
+function closeSecretProtocol() {
+    secretOverlay.classList.remove("active");
+}
+
+secretOverlay.addEventListener("click", (event) => {
+
+    if (event.target === secretOverlay) {
+        closeSecretProtocol();
+    }
+
+});
+
+
+/* =====================================================
+   ESCAPE KEY
+===================================================== */
+
+document.addEventListener("keydown", (event) => {
+
+    if (event.key === "Escape") {
+        closeEmergency();
+    }
+
+});
+
+
+/* =====================================================
+   CLICK OUTSIDE MODAL
+===================================================== */
+
+modal.addEventListener("click", (event) => {
+
+    if (event.target === modal) {
+        closeEmergency();
+    }
+
+});
+
+
+/* =====================================================
+   PARTICLE SYSTEM
+===================================================== */
+
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+let particles = [];
+
+function resizeCanvas() {
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+}
+
+window.addEventListener("resize", resizeCanvas);
+
+resizeCanvas();
+
+
+class Particle {
+
+    constructor() {
+
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+
+        this.size = Math.random() * 1.5 + .2;
+
+        this.speedX = (Math.random() - .5) * .25;
+        this.speedY = (Math.random() - .5) * .25;
+
+        this.opacity = Math.random() * .5;
+
+    }
+
+    update() {
+
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x < 0) this.x = canvas.width;
+        if (this.x > canvas.width) this.x = 0;
+
+        if (this.y < 0) this.y = canvas.height;
+        if (this.y > canvas.height) this.y = 0;
+
+    }
+
+    draw() {
+
+        ctx.beginPath();
+
+        ctx.arc(
+            this.x,
+            this.y,
+            this.size,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fillStyle =
+            `rgba(255,255,255,${this.opacity})`;
+
+        ctx.fill();
+
+    }
+
+}
+
+
+for (let i = 0; i < 130; i++) {
+    particles.push(new Particle());
+}
+
+
+function animateParticles() {
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    particles.forEach(particle => {
+
+        particle.update();
+        particle.draw();
+
+    });
+
+    requestAnimationFrame(animateParticles);
+
+}
+
+animateParticles();
+
+
+/* =====================================================
+   MOUSE PARALLAX
+===================================================== */
+
+document.addEventListener("mousemove", (event) => {
+
+    const x =
+        (event.clientX / window.innerWidth - .5) * 10;
+
+    const y =
+        (event.clientY / window.innerHeight - .5) * 10;
+
+    document.querySelector(".grid").style.transform =
+        `perspective(600px)
+         rotateX(60deg)
+         translate(${x}px, ${y}px)`;
+
+});
+
+
+/* =====================================================
+   INITIAL QUOTE
+===================================================== */
+
+showQuote(0);
+
+</script>
+
+</body>
+</html>
